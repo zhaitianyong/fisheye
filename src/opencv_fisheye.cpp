@@ -69,15 +69,17 @@ double computeReprojectionErrors(const vector<vector<Point3f> > &objectPoints,
     return std::sqrt(totalErr / totalPoints);
 }
 
-void runCalibration(std::vector<cv::String> &files, Mat &cameraMatrix, Mat &distCoeffs, bool fisheye) {
+void runCalibration(std::vector<cv::String> &files, cv::Size& boardSize,cv::Size2f& squareSize, Mat &cameraMatrix, Mat &distCoeffs, bool fisheye) {
 
     std::vector<std::vector<Point2f>> imagePoints;
     vector<vector<cv::Point3f>> objectPoints;
-    cv::Size boardSize(8, 6);
-    cv::Size2f squareSize(20., 20.);
-    cv::Size imageSize;
-    for (int i = 0; i < files.size(); ++i) {
+//    cv::Size boardSize(8, 6);
+//    cv::Size2f squareSize(20., 20.);
 
+    cv::namedWindow("corners", cv::WINDOW_NORMAL);
+    cv::Size imageSize;
+    vector<string> vfilenames;
+    for (int i = 0; i < files.size(); ++i) {
         cv::Mat img = cv::imread(files[i]);
         std::vector<cv::Point2f> corners;
         if (i == 0) imageSize = img.size();
@@ -90,12 +92,13 @@ void runCalibration(std::vector<cv::String> &files, Mat &cameraMatrix, Mat &dist
             cv::cornerSubPix(gray, corners, cv::Size(11, 11), cv::Size(-1, -1),
                              cv::TermCriteria(cv::TermCriteria::EPS + cv::TermCriteria::MAX_ITER, 30, 0.001));
             imagePoints.push_back(corners);
-
+            vfilenames.push_back(files[i]);
             cv::drawChessboardCorners(img, boardSize, cv::Mat(corners), ok);
             cv::imshow("corners", img);
             cv::waitKey(500);
         }
     }
+    cv::destroyAllWindows();
 
     for (int i = 0; i < imagePoints.size(); ++i) {
         std::vector<Point3f> corners;
@@ -125,28 +128,35 @@ void runCalibration(std::vector<cv::String> &files, Mat &cameraMatrix, Mat &dist
 
     std::cout << "total error :" << totalError << std::endl;
     for (int j = 0; j < perViewErrors.size(); ++j) {
-        std::cout << j << " : " << perViewErrors[j] << std::endl;
+        std::cout << vfilenames[j] << " : " << perViewErrors[j] << std::endl;
     }
 
 
 }
 
 
-void undistImages(std::vector<cv::String> &files, const Mat &cameraMatrix, const Mat &distCoeffs) {
+void undistImages(std::vector<cv::String> &files, const Mat &cameraMatrix, const Mat &distCoeffs, bool fisheye) {
 
+    cv::namedWindow("undist", cv::WINDOW_NORMAL);
 
     for (int i = 0; i < files.size(); ++i) {
         cv::Mat img = cv::imread(files[i]);
         Mat map1, map2, undistImg;
         Mat newCameraMatrix;
         Matx33d R = cv::Matx33d::eye();
-        cv::fisheye::estimateNewCameraMatrixForUndistortRectify(cameraMatrix, distCoeffs, img.size(), R,
-                                                                newCameraMatrix, 1.0);
-        cv::fisheye::initUndistortRectifyMap(cameraMatrix, distCoeffs, cv::Matx33d::eye(), newCameraMatrix, img.size(),
-                                             CV_16SC2, map1, map2);
+        if(fisheye){
+            //cv::fisheye::estimateNewCameraMatrixForUndistortRectify(cameraMatrix, distCoeffs, img.size(), R,newCameraMatrix, 1.0);
+            cv::fisheye::initUndistortRectifyMap(cameraMatrix, distCoeffs, cv::Matx33d::eye(), cameraMatrix, img.size(),
+                                                 CV_16SC2, map1, map2);
+        }else{
+            cv::initUndistortRectifyMap(cameraMatrix, distCoeffs, cv::Matx33d::eye(), cameraMatrix, img.size(),CV_16SC2, map1, map2);
+        }
+
         cv::remap(img, undistImg, map1, map2, INTER_LINEAR);
 
         cv::imshow("undist", undistImg);
         cv::waitKey(500);
     }
+
+    cv::destroyAllWindows();
 }

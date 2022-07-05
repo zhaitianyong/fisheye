@@ -27,6 +27,16 @@
 					<DistClean command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/atway/code/slam/fisheye/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="test_opencv_fisheye">
 				<Option output="/home/atway/code/slam/fisheye/cmake-build-debug/test_opencv_fisheye" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/atway/code/slam/fisheye/cmake-build-debug"/>
@@ -87,22 +97,76 @@
 					<DistClean command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="edit_cache">
+			<Target title="test_car_camera_fisheye">
+				<Option output="/home/atway/code/slam/fisheye/cmake-build-debug/test_car_camera_fisheye" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/atway/code/slam/fisheye/cmake-build-debug"/>
-				<Option type="4"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/atway/code/slam/fisheye"/>
+					<Add directory="/home/atway/code/slam/fisheye/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="."/>
+					<Add directory="/usr/local/jdk1.8.0_251/include"/>
+					<Add directory="/usr/local/jdk1.8.0_251/include/linux"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 test_car_camera_fisheye"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test_car_camera_fisheye/fast">
+				<Option output="/home/atway/code/slam/fisheye/cmake-build-debug/test_car_camera_fisheye" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/atway/code/slam/fisheye/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/atway/code/slam/fisheye"/>
+					<Add directory="/home/atway/code/slam/fisheye/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="."/>
+					<Add directory="/usr/local/jdk1.8.0_251/include"/>
+					<Add directory="/usr/local/jdk1.8.0_251/include/linux"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 test_car_camera_fisheye/fast"/>
 					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j12 -f &quot;/home/atway/code/slam/fisheye/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/atway/code/slam/fisheye/sample/test_car_camera_fisheye.cpp">
+			<Option target="test_car_camera_fisheye"/>
+		</Unit>
 		<Unit filename="/home/atway/code/slam/fisheye/sample/test_opencv_fisheye.cpp">
 			<Option target="test_opencv_fisheye"/>
 		</Unit>
 		<Unit filename="/home/atway/code/slam/fisheye/src/opencv_fisheye.cpp">
 			<Option target="test_opencv_fisheye"/>
+			<Option target="test_car_camera_fisheye"/>
 		</Unit>
 		<Unit filename="/home/atway/code/slam/fisheye/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

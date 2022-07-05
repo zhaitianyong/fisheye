@@ -40,5 +40,12 @@ target_link_libraries(test_opencv_fisheye
         ${EIGEN3_LIBS}
         )
 
-
+add_executable(test_car_camera_fisheye
+        sample/test_car_camera_fisheye.cpp
+        src/opencv_fisheye.cpp
+        )
+target_link_libraries(test_car_camera_fisheye
+        ${OpenCV_LIBS}
+        ${EIGEN3_LIBS}
+        )
 #install(TARGETS calibration RUNTIME DESTINATION bin)
